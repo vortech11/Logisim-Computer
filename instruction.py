@@ -112,7 +112,7 @@ class Instruction:
         if self.opcode == Opcode.NOP:
             return [formatInt(0)] * 4
         
-        formatOpcode = formatInt(self.opcode.value)
+        formatOpcode = formatHex(self.opcode.value)
         
         sector2 = formatBin(0, 8)
         sector3 = formatBin(0, 8)
@@ -137,7 +137,7 @@ class Instruction:
             case Opcode.BRH:
                 condition = formatBin(self.parameters[0], 2)
                 bits = formatBin(self.parameters[1], 14)
-                sector2 = f"{condition}{bits[8:14]}"
+                sector2 = f"{bits[8:14]}{condition}"
                 sector3 = f"{bits[:8]}"
         
         return [formatOpcode, formatBinToHex(sector2), formatBinToHex(sector3), formatBinToHex(sector4)]
